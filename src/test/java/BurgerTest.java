@@ -1,3 +1,4 @@
+import constants.TestConstants;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,15 +18,14 @@ import praktikum.IngredientType;
 public class BurgerTest {
     @Mock
     Bun bun;
-
     @Mock
     Ingredient cheese;
-
     @Mock
     Ingredient onion;
-
     @Mock
     Ingredient ketchup;
+    @Mock
+    Ingredient mayonnaise;
 
     Burger burger;
 
@@ -66,7 +66,8 @@ public class BurgerTest {
 
     @Test
     public void addIngredientAddsIngredientToList() {
-        Assert.assertEquals("Ожидалось, что в списке будет 3 ингредиента", 3, burger.ingredients.size());
+        burger.addIngredient(mayonnaise);
+        Assert.assertEquals("Ожидалось, что в списке будет 4 ингредиента", 4, burger.ingredients.size());
     }
 
     @Test
@@ -89,19 +90,19 @@ public class BurgerTest {
     public void getPriceReturnsSumOfAllIngredients() {
         float ingredientsSum = bun.getPrice() * 2 + cheese.getPrice() + onion.getPrice() + ketchup.getPrice();
         burger.setBuns(bun);
-        Assert.assertEquals("Ожидалось, что цена будет равна " + ingredientsSum, ingredientsSum,
-                burger.getPrice(), 0.001);
+        Assert.assertEquals("Неверная цена", ingredientsSum,
+                burger.getPrice(), TestConstants.FLOAT_COMPARISON_DELTA);
     }
 
     @Test
     public void getReceiptReturnsAllIngredientsString() {
-        String expectedReceipt = "(==== Булочка с кунжутом ====)\n" +
-                "= filling Сыр чеддар =\n" +
-                "= filling Лук репчатый =\n" +
-                "= sauce Кетчуп =\n" +
-                "(==== Булочка с кунжутом ====)\n" +
-                "\n" +
-                "Price: 8.500000\n";
+        String expectedReceipt = "(==== Булочка с кунжутом ====)\r\n" +
+                "= filling Сыр чеддар =\r\n" +
+                "= filling Лук репчатый =\r\n" +
+                "= sauce Кетчуп =\r\n" +
+                "(==== Булочка с кунжутом ====)\r\n" +
+                "\r\n" +
+                "Price: 8.500000\r\n";
 
         burger.setBuns(bun);
         Assert.assertEquals("Не получен ожидаемый рецепт", expectedReceipt, burger.getReceipt());

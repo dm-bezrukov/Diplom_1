@@ -4,7 +4,7 @@ import org.junit.Test;
 import praktikum.Bun;
 
 public class BunTest {
-    private Bun bun = null;
+    private Bun bun;
 
     @Before
     public void init() {
@@ -13,11 +13,11 @@ public class BunTest {
 
     @Test
     public void getNameReturnsBunName() {
-        Assert.assertEquals("Ожидалось - \"Булочка\"", "Булочка", bun.getName());
+        Assert.assertEquals("Неверное имя", "Булочка", bun.getName());
     }
 
     @Test
     public void getPriceReturnsBunPrice() {
-        Assert.assertEquals("Ожидалось - \"100.25f\"", 100.25f, bun.getPrice(), 0);
+        Assert.assertEquals("Неверная цена", 100.25f, bun.getPrice(), 0);
     }
 }
